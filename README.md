@@ -16,7 +16,10 @@ You can replicate this step inhouse to save time before uploading to NCBI. Conta
 
 Command:
 
-    YOUR_INSTALL/ncbi-blast-2.7.1/bin/blastn -query INPUT.FASTA  -reward 1 -penalty -5 -gapopen 3 -gapextend 3 -dust yes -soft_masking true -evalue 700 -searchsp 1750000000000 -num_threads 4 -db ~YOUR_INSTALL/ncbi-blast-2.7.1/data/UniVec_Core -outfmt 6 -out OUTPUT.FASTA
+    YOUR_INSTALL/ncbi-blast-2.7.1/bin/blastn -query INPUT.FASTA  \
+    -reward 1 -penalty -5 -gapopen 3 -gapextend 3 -dust yes -soft_masking true \
+    -evalue 700 -searchsp 1750000000000 -num_threads 4 \
+    -db ~YOUR_INSTALL/ncbi-blast-2.7.1/data/UniVec_Core -outfmt 6 -out OUTPUT.FASTA
 
 Output:
 
@@ -26,7 +29,8 @@ Standard BLAST output. Manually remove any contaminants found.
 
 Command:
 
-    prokka --compliant --proteins Z.fa --outdir X --locustag NTHI --genus Haemophilus --species influenzae --strain Y --prefix Y --gram neg --cpus 4 W.fasta
+    prokka --compliant --proteins Z.fa --outdir X --locustag ORG \
+    --genus GENUS --species SPECIES --strain Y --prefix Y --gram neg --cpus 4 W.fasta
 
 Note: Prokka lies, the `--compliant` flag is not really compliant! Prokka is not at fault due to the ever changing requirements of NCBI submission process
 
@@ -72,7 +76,8 @@ More info on `tbl2asn` https://www.ncbi.nlm.nih.gov/genbank/tbl2asn2/
 
 Command:
 
-    tbl2asn -V vb -M n -a r10k -y 'Annotated using Prokka v1.13 from https://github.com/tseemann/prokka' -t X.sbt -i Y.fsa -Z error.tmp
+    tbl2asn -V vb -M n -a r10k -y 'Annotated using Prokka v1.13 \
+    from https://github.com/tseemann/prokka' -t X.sbt -i Y.fsa -Z error.tmp
 
 Where: 
 
@@ -99,9 +104,9 @@ You will encounter heaps of errors from the tbl2asn tool. Hopefully this script 
 
 Command (needs to be run on each .tbl file created above):
 
-    `tbl_cleanup.py` inFile outFile
+    tbl_cleanup.py inFile outFile
     
-    `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
+    tbl_cleanup.py 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
 
 Where:
 
@@ -135,7 +140,9 @@ Actual example:
 
   CGATGGCCCTTCCATTCAGAACCACCGGATCACTATGACCTACTTTCGTACCTGCTCGAC
   TTGTCTGTCTCGCAGTTAAGCTTGCTTATACCTGTCTCTTATACACATCTGACGCTGCC
+  
   \>?145
+  
   AGACAGGTGCAGGTCGGAACTTACCCGACAAGGAATTTCGCTACCTTAGGACCGTTAT
   AGTTACGGCCGCCGTTTACTGGGGCTTCGATCAGGTGCTTCTCTTGCGATGACACCATCA
 
