@@ -1,6 +1,6 @@
 # NCBI Genome Submission Protocol
 
-Steps to submit custom (eg: `Prokka`) annotations to NCBI
+Steps to submit custom (eg: `Prokka`) annotations to NCBI.
 
 Things to note before starting:
 
@@ -11,7 +11,7 @@ Things to note before starting:
 
 ### Steps:
 
-### Contamination Check.
+#### Contamination Check.
 
 NCBI will perform a detailed contamination check via blasting your sequences against a custom db called UniVec or UniVec_Core. More info here: https://www.ncbi.nlm.nih.gov/tools/vecscreen/univec/ 
 You can replicate this step inhouse to save time before uploading to NCBI. Contamination includes sequence adapters and PHIX. Usually these are removed in the trimming step but not always.  
@@ -22,7 +22,7 @@ Command:
 Output:
 Standard BLAST output. Manually remove any contaminants found.
 
-### Run Prokka.
+#### Run Prokka.
 
 Command:
 Prokka lies, the `--compliant` flag is not really compliant!
@@ -42,7 +42,7 @@ Output:
     `.fsa`: prokka reorders contigs and renames, therefore the fasta file generated here is in a different order to the inputed fasta file. Annotations are in reference to this fasta file.
     `.sqn`: ignore! do not use this .sqn. tbl2asn generates a new one. 
 
-### File shuffling for tbl2asn.
+#### File shuffling for tbl2asn.
 
   * Create folder for each isolate/strain
   * Move/Copy the following prokka-generated files into said folder: 
@@ -50,7 +50,7 @@ Output:
     `.tbl` 
     `.sbt` genearted from https://submit.ncbi.nlm.nih.gov/genbank/template/submission/
 
-### Run `tbl2asn`. 
+#### Run `tbl2asn`. 
 tbl2asn is run on each Prokka output separately. This is important because tbl2asn can process multiple files at once if it detects them. Never looked into this unfortunately. You may want to modify the -a flag to specify the contig gaps (NNN) used. 
 More info on `tbl2asn` https://www.ncbi.nlm.nih.gov/genbank/tbl2asn2/
 
@@ -68,7 +68,7 @@ Output:
   `summary.val`: summary of errors encountered 
   `.val`: list of every error encountered by tbl2asn. "warnings" are errors too. Very detailed!
 
-### Run `tbl_cleanup.py` python script.
+#### Run `tbl_cleanup.py` python script.
 
 You will encounter heaps of errors from the tbl2asn tool. Hopefully this script will fix the majority. Some errors require manual correction (see below). Best to create a subfolder for this step.
 
