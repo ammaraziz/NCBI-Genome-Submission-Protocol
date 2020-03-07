@@ -99,9 +99,9 @@ You will encounter heaps of errors from the tbl2asn tool. Hopefully this script 
 
 Command (needs to be run on each .tbl file created above):
 
-  `tbl_cleanup.py` inFile outFile
+    `tbl_cleanup.py` inFile outFile
     
-  `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
+    `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
 
 Where:
 
