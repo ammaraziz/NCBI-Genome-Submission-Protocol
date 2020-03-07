@@ -25,7 +25,7 @@ Standard BLAST output. Manually remove any contaminants found.
 #### Run Prokka.
 
 Command:
-Prokka lies, the `--compliant` flag is not really compliant!
+Prokka lies, the `--compliant` flag is not really compliant! Prokka is not at fault due to the ever changing requirements of NCBI submission process
 
     prokka --compliant --proteins Z.fa --outdir X --locustag NTHI --genus Haemophilus --species influenzae --strain Y --prefix Y --gram neg --cpus 4 W.fasta
 
@@ -39,17 +39,24 @@ Where:
 Output:
 
   * heaps of files, of importance are:
+  
     `.gbk`: human readable format, looks exactly like NCBI nuccore
+    
     `.tbl`: for downstream processing using tbl2asn 
-    `.fsa`: prokka reorders contigs and renames, therefore the fasta file generated here is in a different order to the inputed fasta file. Annotations are in reference to this fasta file.
-    `.sqn`: ignore! do not use this .sqn. tbl2asn generates a new one. 
+    
+    `.fsa`: prokka reorders contigs and renames, therefore the fasta file generated here is in a different order to the inputed fasta file. Annotations are in reference to this fasta file
+    
+    `.sqn`: ignore! do not use this .sqn. tbl2asn generates a new one
 
 #### File shuffling for tbl2asn.
 
   * Create folder for each isolate/strain
   * Move/Copy the following prokka-generated files into said folder: 
+  
     `.fsa`
+    
     `.tbl` 
+    
     `.sbt` genearted from https://submit.ncbi.nlm.nih.gov/genbank/template/submission/
 
 #### Run `tbl2asn`. 
@@ -64,14 +71,19 @@ Command:
 Where: 
 
   `X.sbt` is the file generated from #3 above
+  
   `Y.fsa` is the fasta file prokka generates
+  
   `.tbl` file is detected automatically
 
 Output:
 
   `.gbf`: genbank file (not including annotations) for viewing meta data
+  
   `.sqn`: Important! the file uploaded to NCBI Genome
+  
   `summary.val`: summary of errors encountered 
+  
   `.val`: list of every error encountered by tbl2asn. "warnings" are errors too. Very detailed!
 
 #### Run `tbl_cleanup.py` python script.
@@ -79,8 +91,10 @@ Output:
 You will encounter heaps of errors from the tbl2asn tool. Hopefully this script will fix the majority. Some errors require manual correction (see below). Best to create a subfolder for this step.
 
 Command (needs to be run on each .tbl file created above):
-    `tbl_cleanup.py` inFile outFile
-    `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
+
+  `tbl_cleanup.py` inFile outFile
+    
+  `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
 
 Where
 
