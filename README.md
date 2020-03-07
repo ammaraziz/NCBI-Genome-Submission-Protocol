@@ -30,12 +30,14 @@ Prokka lies, the `--compliant` flag is not really compliant!
     prokka --compliant --proteins Z.fa --outdir X --locustag NTHI --genus Haemophilus --species influenzae --strain Y --prefix Y --gram neg --cpus 4 W.fasta
 
 Where:
+
   `Z.fa` is the annotated amino acid sequences of your reference genome
   `X` is your output directory
   `Y` is your isolate/strain ID (eg: 60051 BAL Hi1)
   `W.fasta` is the assembly fasta file for annotation
 
 Output:
+
   * heaps of files, of importance are:
     `.gbk`: human readable format, looks exactly like NCBI nuccore
     `.tbl`: for downstream processing using tbl2asn 
@@ -51,18 +53,22 @@ Output:
     `.sbt` genearted from https://submit.ncbi.nlm.nih.gov/genbank/template/submission/
 
 #### Run `tbl2asn`. 
+
 tbl2asn is run on each Prokka output separately. This is important because tbl2asn can process multiple files at once if it detects them. Never looked into this unfortunately. You may want to modify the -a flag to specify the contig gaps (NNN) used. 
 More info on `tbl2asn` https://www.ncbi.nlm.nih.gov/genbank/tbl2asn2/
 
 Command:
+
     tbl2asn -V vb -M n -a r10k -y 'Annotated using Prokka v1.13 from https://github.com/tseemann/prokka' -t X.sbt -i Y.fsa -Z error.tmp
 
 Where: 
+
   `X.sbt` is the file generated from #3 above
   `Y.fsa` is the fasta file prokka generates
   `.tbl` file is detected automatically
 
 Output:
+
   `.gbf`: genbank file (not including annotations) for viewing meta data
   `.sqn`: Important! the file uploaded to NCBI Genome
   `summary.val`: summary of errors encountered 
@@ -77,17 +83,21 @@ Command (needs to be run on each .tbl file created above):
     `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
 
 Where
+
   `inFile`: input .tbl file 
   `outFile`: name of output .tbl file
 
 #### Rerun `tbl2asn` (step 2)
+
 If any errors are present, manually correct (see below). The .val file MUST contain no errors or warnings. 
 
 #### Submit .sqn files to NCBI Genome https://submit.ncbi.nlm.nih.gov/subs/genome/
+
 Correct errors encountered and resubmit.
 
 #### (Optional) Types of errors encountered that require manual fixing:		
-    * Unknown `NNNs`
+
+* Unknown `NNNs`
 
 The `tbl2asn` `-a` flag is relevant to this error. See above.
 
@@ -101,7 +111,7 @@ Actual example:
   AGACAGGTGCAGGTCGGAACTTACCCGACAAGGAATTTCGCTACCTTAGGACCGTTAT
   AGTTACGGCCGCCGTTTACTGGGGCTTCGATCAGGTGCTTCTCTTGCGATGACACCATCA
 
-    * Adapters/spikes. See step 0 above. 
+* Adapters/spikes. See step 0 above. 
 
 Extra links for more information:
 https://www.ncbi.nlm.nih.gov/genbank/genomesubmit/ - prokaryotic genome submission guidelines
