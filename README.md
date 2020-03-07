@@ -9,7 +9,7 @@ Things to note before starting:
 3. Install tbl2asn (I used minconda)
 4. Generate sbt file template (needed for tbl2asn): https://submit.ncbi.nlm.nih.gov/genbank/template/submission/
 
-#### 1. Contamination Check.
+### 1. Contamination Check.
 
 NCBI will perform a detailed contamination check via blasting your sequences against a custom db called UniVec or UniVec_Core. More info here: https://www.ncbi.nlm.nih.gov/tools/vecscreen/univec/ 
 You can replicate this step inhouse to save time before uploading to NCBI. Contamination includes sequence adapters and PHIX. Usually these are removed in the trimming step but not always.  
@@ -22,7 +22,7 @@ Output:
 
 Standard BLAST output. Manually remove any contaminants found.
 
-#### 2. Run Prokka.
+### 2. Run Prokka.
 
 Command:
 
@@ -40,7 +40,7 @@ Where:
   
   `W.fasta` is the assembly fasta file for annotation
 
-Outputs of importance are:
+Outputs:
   
   `.gbk`: human readable format, looks exactly like NCBI nuccore
 
@@ -49,8 +49,11 @@ Outputs of importance are:
   `.fsa`: prokka reorders contigs and renames, therefore the fasta file generated here is in a different order to the inputed fasta file. Annotations are in reference to this fasta file
 
   `.sqn`: ignore! do not use this .sqn. tbl2asn generates a new one
+  
+  Ignore the rest, these are the most important
+  
 
-#### 3. File shuffling for tbl2asn.
+### 3. File shuffling for tbl2asn.
 
   * Create folder for each isolate/strain
   * Move/Copy the following prokka-generated files into said folder: 
@@ -60,8 +63,9 @@ Outputs of importance are:
     `.tbl` 
     
     `.sbt` genearted from https://submit.ncbi.nlm.nih.gov/genbank/template/submission/
+    
 
-#### 4. Run `tbl2asn`. 
+### 4. Run `tbl2asn`. 
 
 tbl2asn is run on each Prokka output separately. This is important because tbl2asn can process multiple files at once if it detects them. Never looked into this unfortunately. You may want to modify the -a flag to specify the contig gaps (NNN) used. 
 More info on `tbl2asn` https://www.ncbi.nlm.nih.gov/genbank/tbl2asn2/
@@ -87,8 +91,9 @@ Output:
   `summary.val`: summary of errors encountered 
   
   `.val`: list of every error encountered by tbl2asn. "warnings" are errors too. Very detailed!
+  
 
-#### 5. Run `tbl_cleanup.py` python script.
+### 5. Run `tbl_cleanup.py` python script.
 
 You will encounter heaps of errors from the tbl2asn tool. Hopefully this script will fix the majority. Some errors require manual correction (see below). Best to create a subfolder for this step.
 
@@ -98,20 +103,27 @@ Command (needs to be run on each .tbl file created above):
     
   `tbl_cleanup.py` 60051_BAL_Hi1.tbl 60051_BAL_Hi1_cor.tbl 
 
-Where
+Where:
 
   `inFile`: input .tbl file 
   `outFile`: name of output .tbl file
+  
+Output:
 
-#### 6. Rerun `tbl2asn` (step 2)
+   Clean .tbl file (hopefully)
+   
+
+### 6. Rerun `tbl2asn` (step 2)
 
 If any errors are present, manually correct (see below). The .val file MUST contain no errors or warnings. 
+
 
 #### 7. Submit .sqn files to NCBI Genome https://submit.ncbi.nlm.nih.gov/subs/genome/
 
 Correct errors encountered and resubmit.
 
-#### 8. (Optional) Types of errors encountered that require manual fixing:		
+
+### 8. (Optional) Types of errors encountered that require manual fixing:		
 
 * Unknown `NNNs`
 
@@ -123,6 +135,7 @@ Actual example:
 
   CGATGGCCCTTCCATTCAGAACCACCGGATCACTATGACCTACTTTCGTACCTGCTCGAC
   TTGTCTGTCTCGCAGTTAAGCTTGCTTATACCTGTCTCTTATACACATCTGACGCTGCC
+  
   \>?145
   AGACAGGTGCAGGTCGGAACTTACCCGACAAGGAATTTCGCTACCTTAGGACCGTTAT
   AGTTACGGCCGCCGTTTACTGGGGCTTCGATCAGGTGCTTCTCTTGCGATGACACCATCA
