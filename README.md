@@ -123,16 +123,16 @@ Actual example:
 
   CGATGGCCCTTCCATTCAGAACCACCGGATCACTATGACCTACTTTCGTACCTGCTCGAC
   TTGTCTGTCTCGCAGTTAAGCTTGCTTATACCTGTCTCTTATACACATCTGACGCTGCC
-  >?145
+  \>?145
   AGACAGGTGCAGGTCGGAACTTACCCGACAAGGAATTTCGCTACCTTAGGACCGTTAT
   AGTTACGGCCGCCGTTTACTGGGGCTTCGATCAGGTGCTTCTCTTGCGATGACACCATCA
 
 * Adapters/spikes. See step 0 above. 
 
 Extra links for more information:
+
 https://www.ncbi.nlm.nih.gov/genbank/genomesubmit/ - prokaryotic genome submission guidelines
 https://www.ncbi.nlm.nih.gov/genbank/genome_validation - for Submit portal errors
 https://www.ncbi.nlm.nih.gov/tools/vecscreen/contam/ - for contamination errors
-
 https://www.ncbi.nlm.nih.gov/genbank/asndisc.examples/ - example error report
 https://www.ncbi.nlm.nih.gov/genbank/asndisc/#fatal - example error report
