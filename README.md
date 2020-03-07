@@ -111,6 +111,7 @@ Command (needs to be run on each .tbl file created above):
 Where:
 
   `inFile`: input .tbl file 
+  
   `outFile`: name of output .tbl file
   
 Output:
